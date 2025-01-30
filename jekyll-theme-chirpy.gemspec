@@ -20,7 +20,8 @@ Gem::Specification.new do |spec|
     "homepage_uri"      => "https://cotes2020.github.io/chirpy-demo",
     "source_code_uri"   => "https://github.com/cotes2020/jekyll-theme-chirpy",
     "wiki_uri"          => "https://github.com/cotes2020/jekyll-theme-chirpy/wiki",
-    "plugin_type"       => "theme"
+    "plugin_type"       => "theme",
+    "allowed_push_host" => "https://rubygems.pkg.github.com/h3mul"
   }
 
   spec.required_ruby_version = "~> 3.1"

@@ -22,12 +22,8 @@ on:
       - LICENSE
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        ruby: ["3.1", "3.2", "3.3"]
 
     steps:
       - name: Checkout
@@ -38,7 +34,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby }}
+          ruby-version: 3.3
           bundler-cache: true
 
       - name: Setup Node
@@ -51,3 +47,17 @@ jobs:
 
       - name: Test Site
         run: bash tools/test.sh
+
+      - name: Build Gem
+        shell: bash
+        run: gem build *.gemspec
+
+      - uses: fac/ruby-gem-setup-credentials-action@v2
+        with:
+          token: ${{ secrets.github_token }}
+
+      - name: Release Gem
+        uses: fac/ruby-gem-push-action@v2
+        with:
+          key: github
+          gem-glob: ./*.gem
